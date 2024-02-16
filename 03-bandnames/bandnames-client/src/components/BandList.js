@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-const BandList = ({ data }) => {
+const BandList = ({ data, votar }) => {
 
     const [bands, setBands] = useState(data);
 
@@ -28,7 +28,7 @@ const BandList = ({ data }) => {
 
                 <tr key={band.id}>
                     <td>
-                        <button className='btn btn-primary'> +1 </button>
+                        <button className='btn btn-primary' onClick={() => votar(band.id)}> +1 </button>
                     </td>
                     <td>
                         <input className='form-control' value={band.name} onChange={(event) => cambioNombre(event, band.id)} onBlur={onPerdioFoco(band.id, band.name)} />

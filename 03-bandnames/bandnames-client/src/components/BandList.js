@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-const BandList = ({ data, votar, borrar }) => {
+const BandList = ({ data, votar, borrar, cambiarNombre }) => {
 
     const [bands, setBands] = useState(data);
 
@@ -20,6 +20,7 @@ const BandList = ({ data, votar, borrar }) => {
 
     const onPerdioFoco = (id, nombre) => {
         console.log(id, nombre)
+        cambiarNombre(id,nombre);
     }
 
     const createRows = () => {
@@ -31,7 +32,7 @@ const BandList = ({ data, votar, borrar }) => {
                         <button className='btn btn-primary' onClick={() => votar(band.id)}> +1 </button>
                     </td>
                     <td>
-                        <input className='form-control' value={band.name} onChange={(event) => cambioNombre(event, band.id)} onBlur={onPerdioFoco(band.id, band.name)} />
+                        <input className='form-control' value={band.name} onChange={(event) => cambioNombre(event, band.id)} onBlur={()=>onPerdioFoco(band.id, band.name)} />
                     </td>
                     <td><h3>{band.votes}</h3></td>
                     <td>

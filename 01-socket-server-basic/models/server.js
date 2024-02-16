@@ -4,6 +4,7 @@ const express = require('express');
 const http = require('http');
 const socketio = require('socket.io');
 const path = require("path");
+const Sockets = require('./sockets');
 class Server{
     constructor(){
         this.app = express()
@@ -22,14 +23,14 @@ class Server{
     }
 
     configurarSockets(){
-
+        new Sockets( this.io );
     }
 
     execute(){
         // Inicializar middlewares
         this.middlewares();
         //Inicializar Sockets
-        
+        this.configurarSockets();
         //Inicializar server
         this.server.listen(this.port,()=>{
             console.log("Server corriendo en puerto:", this.port)

@@ -13,6 +13,7 @@ function App() {
     transports:['websocket']
   });
   const [online,setOnline] = useState(false);
+  const [bands,setBands] = useState([]);
 
   useEffect(()=>{
     console.log(socket)
@@ -27,6 +28,13 @@ function App() {
   useEffect(()=>{
     socket.on('disconnect', ()=>{
       setOnline(false)
+    })
+  },[socket])
+
+  useEffect(()=>{
+    socket.on('current-bands', (bands)=>{
+      setBands(bands)
+      console.log(bands)
     })
   },[socket])
 
@@ -52,7 +60,7 @@ function App() {
     </h1>
     <hr></hr>
     <div className="row">
-      <div className="col-8"><BandList/></div>
+      <div className="col-8"><BandList data={bands}/></div>
       <div className="col-4"><BandAdd/></div>
 
     </div>

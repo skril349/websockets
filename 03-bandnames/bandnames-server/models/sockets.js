@@ -38,6 +38,13 @@ class Sockets {
                 this.io.emit('current-bands', this.bandList.getBands())
 
             })
+
+            socket.on('agregar-banda', ({nombre})=>{
+                console.log(nombre)
+                this.bandList.addBand(nombre)
+                this.io.emit('current-bands', this.bandList.getBands())
+
+            })
         });
     }
 

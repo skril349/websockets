@@ -52,6 +52,11 @@ function App() {
 
   }
 
+  const crearBanda = (nombre) =>{
+    socket.emit('agregar-banda', {nombre})
+
+  }
+
   return (
     <div className="container"> 
 
@@ -75,7 +80,7 @@ function App() {
     <hr></hr>
     <div className="row">
       <div className="col-8"><BandList data={bands} votar={votar} borrar={borrar} cambiarNombre={cambiarNombre}/></div>
-      <div className="col-4"><BandAdd/></div>
+      <div className="col-4"><BandAdd crearBanda={crearBanda}/></div>
 
     </div>
     </div>

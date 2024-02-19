@@ -1,21 +1,31 @@
 import { ArrowLeftOutlined, ArrowRightOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { Button, Col, Divider, Row, Typography } from 'antd'
-import React from 'react'
+import React, { useState } from 'react'
 import { useHideMenu } from '../hooks/useHideMenu';
+import { getUsuarioStorage } from '../helpers/getUsuarioStorage';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const { Title, Text } = Typography;
 
 const Escritorio = () => {
   useHideMenu(false)
-
+  const [usuario]=useState(getUsuarioStorage())
+  const navigate = useNavigate(); // Updated to use useNavigate
 
   const salir = () => {
     console.log("salir")
+    localStorage.clear()
+    navigate("/ingresar")
   }
 
   const siguienteTicket = () => {
     console.log("siguienteTicket")
   }
+
+  if(!usuario.agente || !usuario.escritorio){
+    return <Navigate to="/ingresar" replace />
+  }
+
   return (
     <>
       <Row>
@@ -25,7 +35,7 @@ const Escritorio = () => {
           <Text type='success'>5</Text>
         </Col>
         <Col span={4} align="right">
-          <Button shape='round' type='primary' danger onClick={salir}>
+          <Button shape='round' type='primary' danger onClick={()=>salir()}>
             <CloseCircleOutlined />
           </Button>
         </Col>

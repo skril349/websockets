@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Layout, Menu, Button, theme } from 'antd';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-router-dom";
 import Ingresar from './Ingresar';
@@ -6,11 +6,13 @@ import Cola from './Cola';
 import CrearTicket from './CrearTicket';
 import Escritorio from './Escritorio';
 import { MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined, VideoCameraOutlined, UploadOutlined } from '@ant-design/icons';
+import { UiContext } from '../context/UiContext';
 
 const { Header, Sider, Content } = Layout;
 
 const RouterPage = () => {
     const [collapsed, setCollapsed] = useState(false);
+    const {ocultarMenu} = useContext(UiContext)
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
@@ -18,7 +20,7 @@ const RouterPage = () => {
     return (
        <Router>
          <Layout style={{ height: '100vh' }}>
-            <Sider collapsedWidth="0" breakpoint='md'>
+            <Sider collapsedWidth="0" breakpoint='md' hidden={ocultarMenu}>
                 <div className="demo-logo-vertical" />
                 <Menu
                     theme="dark"
@@ -44,18 +46,7 @@ const RouterPage = () => {
                 />
             </Sider>
             <Layout>
-                <Header style={{ padding: 0, background: colorBgContainer }}>
-                    <Button
-                        type="text"
-                        icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                        onClick={() => setCollapsed(!collapsed)}
-                        style={{
-                            fontSize: '16px',
-                            width: 64,
-                            height: 64,
-                        }}
-                    />
-                </Header>
+               
                 <Content
                     style={{
                         margin: '24px 16px',

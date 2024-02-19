@@ -18,7 +18,7 @@ const RouterPage = () => {
     return (
        <Router>
          <Layout style={{ height: '100vh' }}>
-            <Sider trigger={null} collapsible collapsed={collapsed}>
+            <Sider collapsedWidth="0" breakpoint='md'>
                 <div className="demo-logo-vertical" />
                 <Menu
                     theme="dark"

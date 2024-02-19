@@ -9,7 +9,7 @@ export const UiProvider = ({children}) => {
         setOcultarMenu(false)
     }
 
-    const hideMenu = ()=>{
+    const HideMenu = ()=>{
         setOcultarMenu(true)
     }
     
@@ -18,7 +18,7 @@ export const UiProvider = ({children}) => {
     <UiContext.Provider value={{
         ocultarMenu,
         showMenu,
-        hideMenu
+        HideMenu
     }}>
         {children}
     </UiContext.Provider>

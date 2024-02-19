@@ -2,11 +2,15 @@ import React from 'react';
 import { Button, Divider, Form, Input, InputNumber, Typography } from 'antd';
 import { SaveOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom'; // Updated import
+import { useHideMenu } from '../hooks/useHideMenu';
 
 
 const { Title, Text } = Typography;
 
 const Ingresar = () => {
+
+  useHideMenu(false)
+
   const navigate = useNavigate(); // Updated to use useNavigate
 
   const onFinish = (values) => {

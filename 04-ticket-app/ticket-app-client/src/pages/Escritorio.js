@@ -1,10 +1,13 @@
 import { ArrowLeftOutlined, ArrowRightOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { Button, Col, Divider, Row, Typography } from 'antd'
 import React from 'react'
+import { useHideMenu } from '../hooks/useHideMenu';
 
 const { Title, Text } = Typography;
 
 const Escritorio = () => {
+  useHideMenu(false)
+
 
   const salir = () => {
     console.log("salir")

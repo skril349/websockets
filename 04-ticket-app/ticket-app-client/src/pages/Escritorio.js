@@ -30,9 +30,9 @@ const Escritorio = () => {
     <>
       <Row>
         <Col span={20}>
-          <Title level={2}>Fernando</Title>
+          <Title level={2}>{usuario.agente}</Title>
           <Text>Usted trabaja en el escritorio: </Text>
-          <Text type='success'>5</Text>
+          <Text type='success'>{usuario.escritorio}</Text>
         </Col>
         <Col span={4} align="right">
           <Button shape='round' type='primary' danger onClick={()=>salir()}>

@@ -6,8 +6,8 @@ class Ticket{
         this.number = number;
         this.escritorio = null;
         this.agente = null;
-        
+
     }
 }
 
-module.export = Ticket;
+module.exports = Ticket;

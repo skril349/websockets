@@ -1,14 +1,17 @@
 import { ArrowLeftOutlined, ArrowRightOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { Button, Col, Divider, Row, Typography } from 'antd'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useHideMenu } from '../hooks/useHideMenu';
 import { getUsuarioStorage } from '../helpers/getUsuarioStorage';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { SocketContext } from '../context/SocketContext';
 
 const { Title, Text } = Typography;
 
 const Escritorio = () => {
   useHideMenu(false)
+  const {socket} = useContext(SocketContext)
+  const [ticket,setTicket] = useState(null)
   const [usuario]=useState(getUsuarioStorage())
   const navigate = useNavigate(); // Updated to use useNavigate
 
@@ -20,6 +23,10 @@ const Escritorio = () => {
 
   const siguienteTicket = () => {
     console.log("siguienteTicket")
+    console.log(usuario)
+    socket.emit("siguiente-ticket-trabajar",usuario, (ticket) =>{
+      setTicket(ticket)
+    })
   }
 
   if(!usuario.agente || !usuario.escritorio){
@@ -42,12 +49,16 @@ const Escritorio = () => {
       </Row>
       <Divider />
 
-      <Row>
+      {
+        ticket &&(
+          <Row>
         <Col>
           <Text>Esta atendiendo el ticket numero : </Text>
-          <Text style={{ fontSize: 30 }} type='danger'>55</Text>
+          <Text style={{ fontSize: 30 }} type='danger'>{ticket.number}</Text>
         </Col>
       </Row>
+        )
+      }
 
       <Row>
         <Col offset={18} span={6} align="right">

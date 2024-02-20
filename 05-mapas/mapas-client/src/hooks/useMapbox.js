@@ -39,6 +39,7 @@ export const useMapbox = ( puntoInicial ) => {
         }
        
 
+        
         //escuchar movimientos del marcador
         marker.on('drag',({target})=>{
             const {id} = target;
@@ -50,6 +51,13 @@ export const useMapbox = ( puntoInicial ) => {
                 lat
             } );
         })
+    },[])
+
+
+    //Funcion para actualizar la ubicación del marcador
+
+    const actualizarPosicion = useCallback(({id,lng,lat})=>{
+        marcadores.current[id].setLngLat([lng,lat])
     },[])
 
 
@@ -90,7 +98,8 @@ export const useMapbox = ( puntoInicial ) => {
     setRef,
     marcadores,
     nuevoMarcador$: nuevoMarcador.current,
-    movimientoMarcador$: movimientoMarcador.current
+    movimientoMarcador$: movimientoMarcador.current,
+    actualizarPosicion
   }
 }
 

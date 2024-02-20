@@ -22,7 +22,10 @@ class Sockets {
             socket.broadcast.emit('marcador-nuevo',marcador);
            })
            //Marcador actualizado
-
+           socket.on('marcador-actualizado', (marcador)=>{
+            this.marcadores.actualizarMarcador(marcador)
+            socket.broadcast.emit('marcador-actualizado',marcador)
+           })
             
         
         });

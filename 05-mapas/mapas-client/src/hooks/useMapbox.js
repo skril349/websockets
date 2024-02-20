@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState, useCallback } from 'react'
 import mapboxgl from "mapbox-gl"
-
+import {v4} from "uuid"
 mapboxgl.accessToken = "pk.eyJ1Ijoic2tyaWwzNDkiLCJhIjoiY2xzdWttbTgxMGFyZjJpbzFqZWFkcnoyaSJ9.EgLd1JiAJ733Cw1etCOgkQ";
 
 export const useMapbox = ( puntoInicial ) => {
@@ -36,6 +36,22 @@ export const useMapbox = ( puntoInicial ) => {
             })
         })
     },[])
+
+    //Agregar Marcadores al hacer click
+    useEffect(()=>{
+        mapa.current?.on("click",( ev ) => {
+
+            const {lng, lat} = ev.lngLat;
+            const marker = new mapboxgl.Marker();
+            marker.id = v4();
+
+            marker.setLngLat([lng, lat]).addTo(mapa.current).setDraggable(true)
+
+
+           
+        })
+    },[])
+
 
   return{
     coords,

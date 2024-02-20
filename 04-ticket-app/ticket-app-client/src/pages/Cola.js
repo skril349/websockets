@@ -1,51 +1,22 @@
 import { Card, Col, Divider, List, Row,Tag,Typography } from 'antd';
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useHideMenu } from '../hooks/useHideMenu';
+import { SocketContext } from '../context/SocketContext';
 
 const { Title, Text } = Typography;
-
-
-const data = [
-  {
-      ticketNo: 33,
-      escritorio: 3,
-      agente: 'Fernando Herrera'
-  },
-  {
-      ticketNo: 34,
-      escritorio: 4,
-      agente: 'Melissa Flores'
-  },
-  {
-      ticketNo: 35,
-      escritorio: 5,
-      agente: 'Carlos Castro'
-  },
-  {
-      ticketNo: 36,
-      escritorio: 3,
-      agente: 'Fernando Herrera'
-  },
-  {
-      ticketNo: 37,
-      escritorio: 3,
-      agente: 'Fernando Herrera'
-  },
-  {
-      ticketNo: 38,
-      escritorio: 2,
-      agente: 'Melissa Flores'
-  },
-  {
-      ticketNo: 39,
-      escritorio: 5,
-      agente: 'Carlos Castro'
-  },
-];
 
 const Cola = () => {
 
   useHideMenu(true)
+  const {socket} = useContext(SocketContext)
+  const [tickets, setTickets] = useState([])
+
+  useEffect(()=>{
+    socket.on("ticket-asignado",(asignados)=>{
+      console.log(asignados)
+      setTickets(asignados)
+    })
+  },[tickets])
 
   return (
     <>
@@ -55,7 +26,7 @@ const Cola = () => {
       <Row>
         <Col span={12}>
           <List 
-          dataSource={data.slice(0,3)}
+          dataSource={tickets.slice(0,3)}
           renderItem={ item => (
             <List.Item>
               <Card
@@ -66,7 +37,7 @@ const Cola = () => {
 
               ]}
               >
-                <Title>No. {item.ticketNo}</Title>
+                <Title>No. {item.number}</Title>
               </Card>
             </List.Item>
           ) }
@@ -79,14 +50,14 @@ const Cola = () => {
                 Historial:
               </Divider>
               <List
-              dataSource={data.slice(3)}
+              dataSource={tickets.slice(3)}
               renderItem={item =>(
                 <List.Item.Meta
-                title = {`ticket No. ${item.ticketNo}`}
+                title = {`ticket No. ${item.number}`}
                 description={
                   <>
                     <Text>En el escritorio</Text>
-                    <Tag color='magenta'>{item.ticketNo}</Tag>
+                    <Tag color='magenta'>{item.escritorio}</Tag>
                     <Text>Agente: </Text>
                     <Tag color='volcano'>{item.agente}</Tag>
                   </>

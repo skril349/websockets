@@ -2,7 +2,7 @@ import { Card, Col, Divider, List, Row,Tag,Typography } from 'antd';
 import React, { useContext, useEffect, useState } from 'react'
 import { useHideMenu } from '../hooks/useHideMenu';
 import { SocketContext } from '../context/SocketContext';
-
+import {getUltimos} from '../helpers/getUltimos'
 const { Title, Text } = Typography;
 
 const Cola = () => {
@@ -17,6 +17,15 @@ const Cola = () => {
       setTickets(asignados)
     })
   },[tickets])
+
+  useEffect(()=>{
+    (async () => {
+      const response = await getUltimos();
+      console.log(response)
+      setTickets(response.ultimos)
+    })();
+    },[])
+ 
 
   return (
     <>

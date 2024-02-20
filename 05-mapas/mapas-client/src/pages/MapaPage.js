@@ -14,13 +14,11 @@ const MapaPage = () => {
 
         useEffect(()=>{
             nuevoMarcador$.subscribe(marcador =>{
-                console.log(marcador)
             })
         },[nuevoMarcador$])
 
         useEffect(()=>{
             movimientoMarcador$.subscribe(movimientoMarcador =>{
-                console.log("movimiento $ =",movimientoMarcador)
             })
         },[movimientoMarcador$])
     

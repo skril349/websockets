@@ -51,7 +51,7 @@ const Escritorio = () => {
 
       <Row>
         <Col offset={18} span={6} align="right">
-          <Button shape='round' type='primary' onClick={siguienteTicket}> <ArrowRightOutlined/>Siguiente</Button>
+          <Button shape='round' type='primary' onClick={()=>siguienteTicket()}> <ArrowRightOutlined/>Siguiente</Button>
         </Col>
       </Row>
     </>

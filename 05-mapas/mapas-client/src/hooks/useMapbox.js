@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState, useCallback } from 'react'
 import mapboxgl from "mapbox-gl"
 import {v4} from "uuid"
+import {Subject} from 'rxjs'
 mapboxgl.accessToken = "pk.eyJ1Ijoic2tyaWwzNDkiLCJhIjoiY2xzdWttbTgxMGFyZjJpbzFqZWFkcnoyaSJ9.EgLd1JiAJ733Cw1etCOgkQ";
 
 export const useMapbox = ( puntoInicial ) => {
@@ -12,6 +13,9 @@ export const useMapbox = ( puntoInicial ) => {
     //Referencia de los marcadores
     const marcadores = useRef({})
 
+    // observadores de rxjs
+    const movimientoMarcador = useRef(new Subject());
+    const nuevoMarcador = useRef(new Subject());
 
     // const [mapa, setMapa] = useState()
     const mapa = useRef();
@@ -26,10 +30,22 @@ export const useMapbox = ( puntoInicial ) => {
         marker.setLngLat([lng, lat]).addTo(mapa.current).setDraggable(true)
         marcadores.current[marker.id] = marker;
 
+        nuevoMarcador.current.next( {
+            id:marker.id,
+            lng,
+            lat
+        } );
+
         //escuchar movimientos del marcador
         marker.on('drag',({target})=>{
             const {id} = target;
             const {lng, lat} = target.getLngLat()
+
+            movimientoMarcador.current.next( {
+                id:marker.id,
+                lng,
+                lat
+            } );
         })
     },[])
 
@@ -69,7 +85,9 @@ export const useMapbox = ( puntoInicial ) => {
     agregarMarcador,
     coords,
     setRef,
-    marcadores
+    marcadores,
+    nuevoMarcador$: nuevoMarcador.current,
+    movimientoMarcador$: movimientoMarcador.current
   }
 }
 

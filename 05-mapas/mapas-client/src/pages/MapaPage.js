@@ -1,6 +1,7 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState, useContext } from 'react'
 import "./MapPage.css"
 import { useMapbox } from '../hooks/useMapbox';
+import { SocketContext } from '../context/SocketContext';
 
 const puntoInicial = {
     lng:2.1553,
@@ -11,9 +12,10 @@ const puntoInicial = {
 const MapaPage = () => {
 
         const {coords,setRef,nuevoMarcador$,movimientoMarcador$} = useMapbox(puntoInicial)
-
+        const {socket} = useContext(SocketContext)
         useEffect(()=>{
             nuevoMarcador$.subscribe(marcador =>{
+                socket.emit('marcador-nuevo', marcador)
             })
         },[nuevoMarcador$])
 
@@ -21,6 +23,12 @@ const MapaPage = () => {
             movimientoMarcador$.subscribe(movimientoMarcador =>{
             })
         },[movimientoMarcador$])
+
+        useEffect(()=>{
+            socket.on('marcador-nuevo', (marcador)=>{
+                console.log(marcador)
+            })
+        },[socket])
     
     return (
         <>

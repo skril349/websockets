@@ -1,11 +1,30 @@
-const { validationResult } = require("express-validator")
+const { response } = require('express');
+const Usuario = require('../models/usuario');
 
 
 const crearUsuario = async(req,res = response)=>{
-    res.json({
-        ok:true,
-        msg:'new'
-    })
+
+    try {
+
+        const { email, password } = req.body;
+
+        // verificar que el email no exista
+
+        const existeEmail = await Usuario.findOne({email})
+
+
+        res.json({
+            email,
+            password
+        })
+        
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            ok:false,
+            msg:"Hable con el administrador"
+        })
+    }
 }
 
 const RenewToken = async(req,res = response)=>{
@@ -17,13 +36,7 @@ const RenewToken = async(req,res = response)=>{
 
 const Login = async(req,res = response)=>{
 
-    const errores = validationResult(req)
-    if(!errores.isEmpty()){
-        return res.status(400).json({
-            ok:false,
-            errors:errores.mapped()
-        })
-    }
+  
     const {email,password} = req.body;
     res.json({
         ok:true,

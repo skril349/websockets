@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ChatPage = () => {
+export const ChatPage = () => {
   return (
     <div>
       Chat Page
@@ -8,4 +8,3 @@ const ChatPage = () => {
   )
 }
 
-export default ChatPage

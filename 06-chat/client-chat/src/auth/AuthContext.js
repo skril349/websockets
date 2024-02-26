@@ -36,8 +36,23 @@ const AuthProvider = ({children}) => {
         return resp.ok
     }
 
-    const register = (nombre,email,password)=>{
+    const register = async (nombre,email,password)=>{
+        const resp =await fetchSinToken("login/new", {nombre,email,password},"POST");
+        console.log(resp)
+        const {usuario,token} = resp
+        if(usuario){
+            localStorage.setItem('token',token)
+            setAuth({
 
+                uid:usuario.uid,
+                checking:false,
+                logged:true,
+                name:usuario.name,
+                email:usuario.email,
+            })
+            return true
+        }
+        return resp.msg
     }
 
     const verificarToken = useCallback( ()=>{

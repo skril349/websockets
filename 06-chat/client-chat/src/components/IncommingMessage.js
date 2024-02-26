@@ -4,7 +4,7 @@ const IncommingMessage = () => {
   return (
     <div className="incoming_msg">
         <div className="incoming_msg_img">
-          <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil" />
+          <img src="https://www.odoo.com/web/image/res.users/1594444/image_1024?unique=b1cd4b9" alt="sunil" />
         </div>
         <div className="received_msg">
           <div className="received_withd_msg">

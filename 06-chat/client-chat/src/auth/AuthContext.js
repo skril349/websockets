@@ -1,4 +1,5 @@
 import React, {Children, createContext, useCallback, useState} from "react"
+import { fetchSinToken } from "../helpers/fetch"
 
 export const AuthContext = createContext()
 
@@ -16,8 +17,10 @@ const initialState = {
 const AuthProvider = ({children}) => {
 
     const [auth, setAuth] = useState(initialState)
-    const login = (email,password) =>{
+    const login = async(email,password) =>{
 
+        const resp = fetchSinToken("login", {email,password},"POST");
+        console.log(resp)
     }
 
     const register = (nombre,email,password)=>{

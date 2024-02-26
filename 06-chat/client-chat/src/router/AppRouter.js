@@ -9,6 +9,8 @@ import {
 import { AuthRouter } from './AuthRouter';
 import { ChatPage } from '../pages/ChatPage';
 import { AuthContext } from '../auth/AuthContext';
+import PublicRoute from './PublicRoute';
+import PrivateRoute from './PrivateRoute';
 
 export const AppRouter = () => {
 
@@ -26,8 +28,17 @@ export const AppRouter = () => {
         <Router>
             <div>
                 <Routes>
-                    <Route path="/auth/*" element={<AuthRouter />} />
-                    <Route path="/" element={<ChatPage />} />
+                    {/* <Route path="/auth/*" element={<AuthRouter />} /> */}
+                    <Route path="/auth/*" element={
+                        <PublicRoute isAuthenticated={auth.logged}>
+                            <AuthRouter />
+                        </PublicRoute>
+                    } />
+                    <Route exact path="/" element={
+                        <PrivateRoute isAuthenticated={auth.logged}>
+                            <ChatPage />
+                        </PrivateRoute>
+                    } />       
                     <Route path='*' element={<Navigate to="/" replace />} />
                 </Routes>
             </div>

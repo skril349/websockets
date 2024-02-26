@@ -20,7 +20,7 @@ const AuthProvider = ({ children }) => {
     const login = async (email, password) => {
 
         const resp = await fetchSinToken("login", { email, password }, "POST");
-        console.log(resp.ok)
+        console.log(resp)
         const { usuario } = resp
         if (resp.ok) {
             localStorage.setItem('token', resp.token)
@@ -29,7 +29,7 @@ const AuthProvider = ({ children }) => {
                 uid: usuario.uid,
                 checking: false,
                 logged: true,
-                name: usuario.name,
+                name: usuario.nombre,
                 email: usuario.email,
             })
         }
@@ -47,7 +47,7 @@ const AuthProvider = ({ children }) => {
                 uid: usuario.uid,
                 checking: false,
                 logged: true,
-                name: usuario.name,
+                name: usuario.nombre,
                 email: usuario.email,
             })
             return true
@@ -81,7 +81,7 @@ const AuthProvider = ({ children }) => {
                 uid: usuario.uid,
                 checking: false,
                 logged: true,
-                name: usuario.name,
+                name: usuario.nombre,
                 email: usuario.email,
             })
             return true
@@ -102,6 +102,11 @@ const AuthProvider = ({ children }) => {
     }, [])
 
     const logOut = () => {
+        localStorage.removeItem('token')
+        setAuth({
+            checking: false,
+            logged: false,
+        })
 
     }
 

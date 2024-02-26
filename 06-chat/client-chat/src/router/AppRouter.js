@@ -28,7 +28,6 @@ export const AppRouter = () => {
         <Router>
             <div>
                 <Routes>
-                    {/* <Route path="/auth/*" element={<AuthRouter />} /> */}
                     <Route path="/auth/*" element={
                         <PublicRoute isAuthenticated={auth.logged}>
                             <AuthRouter />

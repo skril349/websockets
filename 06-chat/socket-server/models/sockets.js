@@ -30,6 +30,9 @@ class Sockets {
 
         // TODO: Disconnect
         // Marcar en la DB que el user se ha desconectado
+        socket.on('disconnect', ()=>{
+            console.log("cliente desconectado")
+        })
 
         //TODO: Emitir todos los desconectados
         

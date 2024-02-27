@@ -16,8 +16,8 @@ const Messages = () => {
         {
             chatState.mensajes.map((msg)=>(
                 ( msg.para === auth.uid)
-                ?<IncommingMessage key={msg}/>
-                :<OutgoingMessage key={msg}/>
+                ?<IncommingMessage key={msg._id}/>
+                :<OutgoingMessage key={msg._id}/>
             ))
         }
 

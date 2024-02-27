@@ -2,12 +2,16 @@ import React, { useContext, useEffect } from 'react';
 import { createContext } from 'react';
 import { useSocket } from '../hooks/useSocket'
 import { AuthContext } from '../auth/AuthContext';
+import { chatReducer } from './chat/chatReducer';
+import { ChatContext } from './chat/ChatContext';
+import { types } from '../types/types';
 
 export const SocketContext = createContext();
 
 
 export const SocketProvider = ({ children }) => {
 
+    const {dispatch} = useContext(ChatContext)
     const {auth} = useContext(AuthContext)
 
     const { socket, online, conectarSocket,desconectarSocket } = useSocket('http://localhost:8080');
@@ -26,9 +30,12 @@ export const SocketProvider = ({ children }) => {
 
     useEffect(()=>{
         socket?.on("lista-usuarios",(usuarios)=>{
-            console.log(usuarios)
+            dispatch({
+                type:types.usuariosCargados,
+                payload:usuarios
+            })
         })
-    },[socket])
+    },[socket, dispatch])
     
     
     return (

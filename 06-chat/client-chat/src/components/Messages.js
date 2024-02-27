@@ -12,7 +12,7 @@ const Messages = () => {
 
   return (
     <div className="mesgs">
-    <div className="msg_history">
+    <div id='mensajes' className="msg_history">
         {
             chatState.mensajes.map((msg)=>(
                 ( msg.para === auth.uid)

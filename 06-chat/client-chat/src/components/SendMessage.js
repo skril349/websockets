@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
-
+import React, { useContext, useState } from 'react'
+import {SocketContext} from "../context/SocketContext"
+import { AuthContext } from '../auth/AuthContext'
+import { ChatContext } from '../context/chat/ChatContext'
 const SendMessage = () => {
 
 
     const [message, setMessage] = useState('')
-
+    const {socket }=useContext(SocketContext)
+    const {auth} = useContext(AuthContext)
+    const {chatState} = useContext(ChatContext)
     const onChange = ({target}) =>{
         setMessage(target.value)
     }
@@ -18,6 +22,11 @@ const SendMessage = () => {
 
         //TODO: Emitir al backend sockets para enviar mensaje
         
+        socket.emit("mensaje-personal", {
+            de: auth.uid,
+            para:chatState.chatActivo,
+            mensaje:message
+        })
     }
 
 

@@ -21,7 +21,9 @@ class Sockets {
         }
 
         await usuarioConectado( uid );
-        // SI Token no es valido, desconectar
+
+        // Unir a sala de socket.io
+        socket.join( uid );
         
 
         //TODO: Saber que usuario está activo mediante UID
@@ -34,6 +36,9 @@ class Sockets {
 
         // TODO: Escuchar cuando el cliente manda un mensaje
         // mensaje-personal
+        socket.on("mensaje-personal", (payload) =>{
+            console.log(payload)
+        })
 
         // TODO: Disconnect
         // Marcar en la DB que el user se ha desconectado

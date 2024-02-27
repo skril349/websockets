@@ -23,6 +23,12 @@ export const SocketProvider = ({ children }) => {
             desconectarSocket()
         }
     },[auth,desconectarSocket])
+
+    useEffect(()=>{
+        socket?.on("lista-usuarios",(usuarios)=>{
+            console.log(usuarios)
+        })
+    },[socket])
     
     
     return (

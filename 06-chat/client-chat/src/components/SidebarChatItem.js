@@ -4,7 +4,8 @@ import { types } from '../types/types'
 
 const SidebarChatItem = (props) => {
   const {usuario} = props
-  const {dispatch} = useContext(ChatContext)
+  const {dispatch, chatState} = useContext(ChatContext)
+  const {chatActivo} = chatState
   const onCLick = () =>{
     dispatch({
       type:types.activarChat,
@@ -13,8 +14,9 @@ const SidebarChatItem = (props) => {
   }
 
   return (
-    <div className="chat_list active_chat"
+    <div className={`chat-list ${(usuario.uid === chatActivo)&& 'active_chat'}` }
     onClick={onCLick}>
+
         <div className="chat_people">
             <div className="chat_img"> 
                 <img src="https://www.odoo.com/web/image/res.users/1594444/image_1024?unique=b1cd4b9" alt="sunil" />
